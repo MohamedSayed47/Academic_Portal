@@ -3,7 +3,7 @@ import 'material_page.dart';
 import 'community_page.dart';
 import 'student_profile.dart';
 import 'notifications_page.dart';
-import 'result_page.dart';
+import 'package:academic_portal/result_page.dart';
 import 'schedule_page.dart';
 import 'news_page.dart';
 import 'login_page.dart';
@@ -44,13 +44,15 @@ class _HomePageState extends State<home_page> {
   final List<Widget> _pages = [
     HomeContentPage(),
     material_page(),
-    CommunityPage(),
+    community_page(),
     student_profile(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

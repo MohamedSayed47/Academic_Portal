@@ -34,7 +34,6 @@ class material_page extends StatelessWidget {
           itemCount: courses.length,
           itemBuilder: (context, index) {
             final courseName = courses[index];
-            // Cycle through colors using modulo
             final color = courseColors[index % courseColors.length];
             return Padding(
               padding: const EdgeInsets.only(
@@ -83,7 +82,6 @@ class CourseCard extends StatelessWidget {
                 'assets/icons/books.svg',
                 width: 40,
                 height: 40,
-                color: Colors.white54,
                 placeholderBuilder:
                     (context) =>
                         Icon(Icons.error, color: Colors.white54, size: 40),

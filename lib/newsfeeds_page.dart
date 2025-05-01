@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'course_details_page.dart';
-import 'newsfeeds_page.dart';
+import 'course_member_page.dart';
 
-class course_member_page extends StatelessWidget {
+class newsfeeds_page extends StatelessWidget {
   final String courseCode;
   final String courseTitle;
 
-  const course_member_page({
+  const newsfeeds_page({
     Key? key,
     required this.courseCode,
     required this.courseTitle,
@@ -24,12 +24,12 @@ class course_member_page extends StatelessWidget {
           ),
         ),
       );
-    } else if (index == 1) {
+    } else if (index == 2) {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder:
-              (_) => newsfeeds_page(
+              (_) => course_member_page(
             courseCode: courseCode,
             courseTitle: courseTitle,
           ),
@@ -38,21 +38,18 @@ class course_member_page extends StatelessWidget {
     }
   }
 
-  final List<String> instructors = const [
-    'Mohamed Elseyed',
-    'Abdallah mohamed',
-  ];
-
-  final List<String> students = const [
-    'Mohamed Sayed',
-    'Abdallah shaaban',
-    'Mahmoud adel ',
-    'Mohamed Elshamey',
+  static const List<Map<String, String>> newsData = [
+    {'title': 'News Item 1', 'description': 'Description placeholder'},
+    {'title': 'News Item 2', 'description': 'Description placeholder'},
+    {'title': 'News Item 3', 'description': 'Description placeholder'},
+    {'title': 'News Item 4', 'description': 'Description placeholder'},
+    {'title': 'News Item 5', 'description': 'Description placeholder'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFE3F2FD),
       appBar: AppBar(
         backgroundColor: const Color(0xFF00194A),
         leading: IconButton(
@@ -79,7 +76,7 @@ class course_member_page extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(bottom: 8),
             child: Text(
-              'Members',
+              'NewsFeed',
               style: TextStyle(
                 color: Colors.amber,
                 fontSize: 18,
@@ -90,26 +87,37 @@ class course_member_page extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Instructors',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            ...instructors.map(_buildTile).toList(),
-            const SizedBox(height: 12),
-            const Text(
-              'Students',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            ...students.map(_buildTile).toList(),
-          ],
+        padding: const EdgeInsets.all(16.0),
+        child: ListView.builder(
+          itemCount: newsData.length,
+          itemBuilder: (context, index) {
+            final item = newsData[index];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Container(
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFBBDEFB),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Text(
+                    item['title']!,
+                    style: const TextStyle(
+                      color: Colors.black54,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
+        currentIndex: 1,
         selectedItemColor: Colors.amber,
         unselectedItemColor: Colors.white,
         backgroundColor: const Color(0xFF00194A),
@@ -122,19 +130,6 @@ class course_member_page extends StatelessWidget {
           ),
           BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Members'),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTile(String name) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        leading: const CircleAvatar(
-          backgroundColor: Colors.grey,
-          child: Icon(Icons.person, color: Colors.white),
-        ),
-        title: Text(name),
       ),
     );
   }
