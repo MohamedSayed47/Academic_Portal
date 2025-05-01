@@ -100,9 +100,9 @@ class _ResultsScreenState extends State<result_page> {
     final semesters = resultsData.keys.toList();
 
     return Scaffold(
-      backgroundColor:  Color(0xFF0D47A1), // Darker blue for the top section
+      backgroundColor: Color(0xFF0D47A1), // Darker blue for the top section
       appBar: AppBar(
-        backgroundColor:  Color(0xFF0D47A1), // Darker blue
+        backgroundColor: Color(0xFF0D47A1), // Darker blue
         elevation: 4, // Shadow for depth
         leading: IconButton(
           icon: const Icon(
@@ -113,16 +113,11 @@ class _ResultsScreenState extends State<result_page> {
             // Navigate to HomePageScreen
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const home_page(),
-              ),
+              MaterialPageRoute(builder: (context) => home_page()),
             );
           },
         ),
-        title: const Text(
-          'Results',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Results', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: [
           IconButton(
@@ -134,9 +129,7 @@ class _ResultsScreenState extends State<result_page> {
               // Navigate to NotificationsPageScreen
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const notifications_page(),
-                ),
+                MaterialPageRoute(builder: (context) => notifications_page()),
               );
             },
           ),
@@ -174,7 +167,10 @@ class _ResultsScreenState extends State<result_page> {
                           const SizedBox(height: 4),
                           Text(
                             'Credit Achieved',
-                            style: TextStyle(fontSize: 14, color: Colors.grey[00]),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[00],
+                            ),
                           ),
                         ],
                       ),
@@ -191,7 +187,10 @@ class _ResultsScreenState extends State<result_page> {
                           const SizedBox(height: 4),
                           Text(
                             'GPA',
-                            style: TextStyle(fontSize: 14, color: Colors.grey[00]),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[00],
+                            ),
                           ),
                         ],
                       ),
@@ -203,34 +202,43 @@ class _ResultsScreenState extends State<result_page> {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: semesters.map<Widget>((semester) {
-                      bool isSelected = semester == selectedSemester;
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              selectedSemester = semester;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: isSelected
-                                ? const Color(0xFFFFA726) // Orange
-                                : Colors.grey[300], // Darker grey for unselected
-                            foregroundColor: isSelected ? Colors.white : Colors.white, // White for better contrast on dark blue background
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                    children:
+                        semesters.map<Widget>((semester) {
+                          bool isSelected = semester == selectedSemester;
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedSemester = semester;
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    isSelected
+                                        ? const Color(0xFFFFA726) // Orange
+                                        : Colors
+                                            .grey[300], // Darker grey for unselected
+                                foregroundColor:
+                                    isSelected
+                                        ? Colors.white
+                                        : Colors
+                                            .white, // White for better contrast on dark blue background
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                              ),
+                              child: Text(
+                                semester,
+                                style: const TextStyle(fontSize: 14),
+                              ),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
-                          ),
-                          child: Text(
-                            semester,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                          );
+                        }).toList(),
                   ),
                 ),
               ],
@@ -246,7 +254,8 @@ class _ResultsScreenState extends State<result_page> {
                   itemCount: currentSemesterData['courses'].length,
                   itemBuilder: (context, index) {
                     final course = currentSemesterData['courses'][index];
-                    final totalDegree = course['grades']['Year\'s Work'] +
+                    final totalDegree =
+                        course['grades']['Year\'s Work'] +
                         course['grades']['Mid'] +
                         course['grades']['Final'];
                     return Padding(
