@@ -37,11 +37,10 @@ class material_page extends StatelessWidget {
             // Cycle through colors using modulo
             final color = courseColors[index % courseColors.length];
             return Padding(
-              padding: const EdgeInsets.only(bottom: 16.0), // Space between cards
-              child: CourseCard(
-                name: courseName,
-                color: color,
-              ),
+              padding: const EdgeInsets.only(
+                bottom: 16.0,
+              ), // Space between cards
+              child: CourseCard(name: courseName, color: color),
             );
           },
         ),
@@ -54,10 +53,7 @@ class CourseCard extends StatelessWidget {
   final String name;
   final Color color;
 
-  const CourseCard({
-    required this.name,
-    required this.color,
-  });
+  const CourseCard({required this.name, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +84,9 @@ class CourseCard extends StatelessWidget {
                 width: 40,
                 height: 40,
                 color: Colors.white54,
-                placeholderBuilder: (context) => Icon(
-                  Icons.error,
-                  color: Colors.white54,
-                  size: 40,
-                ),
+                placeholderBuilder:
+                    (context) =>
+                        Icon(Icons.error, color: Colors.white54, size: 40),
               ),
             ),
             Padding(
@@ -139,13 +133,7 @@ class CourseMaterialsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Example list of lectures (placeholder)
-    final List<String> lectures = [
-      'Lec 1',
-      'Lec 2',
-      'Lec 3',
-      'Lec 4',
-      'Lec 5',
-    ];
+    final List<String> lectures = ['Lec 1', 'Lec 2', 'Lec 3', 'Lec 4', 'Lec 5'];
 
     return Scaffold(
       appBar: AppBar(
@@ -173,17 +161,16 @@ class CourseMaterialsScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          lecture,
-                          style: const TextStyle(fontSize: 16),
-                        ),
+                        Text(lecture, style: const TextStyle(fontSize: 16)),
                         IconButton(
                           icon: const Icon(Icons.download, color: Colors.blue),
                           onPressed: () {
                             // Placeholder for download action
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Download $lecture for $courseName'),
+                                content: Text(
+                                  'Download $lecture for $courseName',
+                                ),
                               ),
                             );
                           },
