@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'notifications_page.dart';
 
+import 'home_page.dart';
+
+import 'notifications_page.dart';
 
 class news_page extends StatelessWidget {
   const news_page();
@@ -30,16 +31,11 @@ class news_page extends StatelessWidget {
             // Navigate to HomePageScreen
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const home_page(),
-              ),
+              MaterialPageRoute(builder: (context) => home_page()),
             );
           },
         ),
-        title: const Text(
-          'News',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('News', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: [
           IconButton(
@@ -51,9 +47,7 @@ class news_page extends StatelessWidget {
               // Navigate to NotificationsPageScreen
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const notifications_page(),
-                ),
+                MaterialPageRoute(builder: (context) => notifications_page()),
               );
             },
           ),
