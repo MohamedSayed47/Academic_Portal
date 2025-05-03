@@ -1,45 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+class Course {
+  final String title;
+  final Color color;
+
+  Course(this.title, this.color);
+}
 
 class material_page extends StatelessWidget {
-  // Define a list of 6 static colors
-  static const List<Color> courseColors = [
-    Color(0xFF388E3C), // Green
-    Color(0xFF1976D2), // Blue
-    Color(0xFFEF5350), // Red
-    Color(0xFFFFA726), // Orange
-    Color(0xFFAB47BC), // Purple
-    Color(0xFF26C6DA), // Cyan
-  ];
-
-  // Hardcoded list of course names
-  final List<String> courses = [
-    'Database Systems',
-    'Probability & Statistics',
-    'Linear Algebra',
-    'Intro to Cybersecurity',
-    'Calculus I',
-    'Physics I',
-    'Chemistry I',
-    'Biology I',
+  final List<Course> courses = [
+    Course('Database Systems', Colors.green.shade400),
+    Course('Probability & Statistics', Colors.blue.shade400),
+    Course('Linear Algebra', Colors.red.shade300),
+    Course('Introduction to Cybersecurity', Colors.red.shade400),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Color(0xFFF5FAFF),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        child: ListView.separated(
           itemCount: courses.length,
+          separatorBuilder: (context, index) => SizedBox(height: 16),
           itemBuilder: (context, index) {
-            final courseName = courses[index];
-            final color = courseColors[index % courseColors.length];
-            return Padding(
-              padding: const EdgeInsets.only(
-                bottom: 16.0,
-              ), // Space between cards
-              child: CourseCard(name: courseName, color: color),
+            final course = courses[index];
+            return CourseCard(
+              course,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => CourseMaterialsScreen(courseName: course.title),
+                  ),
+                );
+              },
             );
           },
         ),
@@ -49,70 +45,40 @@ class material_page extends StatelessWidget {
 }
 
 class CourseCard extends StatelessWidget {
-  final String name;
-  final Color color;
+  final Course course;
+  final VoidCallback onTap;
 
-  const CourseCard({required this.name, required this.color});
+  CourseCard(this.course, {required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Navigate to CourseMaterialsScreen when the card is tapped
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CourseMaterialsScreen(courseName: name),
-          ),
-        );
-      },
+      onTap: onTap,
       child: Container(
-        width: double.infinity, // Take full screen width
-        height: 150, // Fixed height for consistency
         decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(16),
+          color: course.color,
+          borderRadius: BorderRadius.circular(20),
         ),
-        child: Stack(
+        padding: EdgeInsets.all(16),
+        child: Row(
           children: [
-            Positioned(
-              top: 16,
-              left: 16,
-              child: SvgPicture.asset(
-                'assets/icons/books.svg',
-                width: 40,
-                height: 40,
-                placeholderBuilder:
-                    (context) =>
-                        Icon(Icons.error, color: Colors.white54, size: 40),
+            Icon(Icons.menu_book_rounded, color: Colors.white, size: 40),
+            SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                course.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.arrow_forward, color: Colors.black),
-                  ),
-                ],
-              ),
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(Icons.arrow_forward, color: course.color),
             ),
           ],
         ),
